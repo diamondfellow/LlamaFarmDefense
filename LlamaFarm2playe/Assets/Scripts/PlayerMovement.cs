@@ -57,6 +57,5 @@ public class PlayerMovement : MonoBehaviour
             frozen = true;
             Destroy(collision.gameObject);
         }
-        Debug.Log(collision.gameObject.tag);
     }
 }

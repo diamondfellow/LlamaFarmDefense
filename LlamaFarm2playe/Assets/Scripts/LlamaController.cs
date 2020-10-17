@@ -6,7 +6,7 @@ public class LlamaController : MonoBehaviour
 {
     float gameTimer;
     float llamaTimer;
-    int difficulty = 5;
+    int difficulty = 1;
     public GameObject llama;
     public GameObject laserLlama;
     public GameObject juggerLlama;
@@ -29,7 +29,7 @@ public class LlamaController : MonoBehaviour
             gameTimer = 0;
             difficulty++;
         }
-        if (llamaTimer > 16 - difficulty)
+        if (llamaTimer > 12 - difficulty)
         {
             llamaTimer = 0;
             if (rnd.Next(1, 3) == 1)
@@ -40,46 +40,41 @@ public class LlamaController : MonoBehaviour
             {
                 x = -9;
             }
-            if (difficulty < 7)  //Testing if statement.  Unnecessary
+            if (difficulty > 4)
             {
-
-                if (difficulty > 4)
+                llamaChooser = rnd.Next(1, 9);
+                if (llamaChooser < 3)
                 {
-                    llamaChooser = rnd.Next(1, 9);
-                    if (llamaChooser < 3)
-                    {
-                        Instantiate(llama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
-                    }
-                    else if (llamaChooser > 5)
-                    {
-                        Instantiate(juggerLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
-                    }
-                    else
-                    {
-                        Instantiate(laserLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
-                    }
+                    Instantiate(llama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
                 }
-                else if (difficulty > 2)
+                else if (llamaChooser > 5)
                 {
-                    llamaChooser = rnd.Next(1, 6);
-                    if (llamaChooser == 1)
-                    {
-                        Instantiate(laserLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
-                    }
-                    else if (llamaChooser == 2)
-                    {
-                        Instantiate(juggerLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
-                    }
-                    else
-                    {
-                        Instantiate(llama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
-                    }
+                    Instantiate(juggerLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(laserLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
+                }
+            }
+            else if (difficulty > 2)
+            {
+                llamaChooser = rnd.Next(1, 6);
+                if (llamaChooser == 1)
+                {
+                    Instantiate(laserLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
+                }
+                else if (llamaChooser == 2)
+                {
+                    Instantiate(juggerLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
                 }
                 else
                 {
                     Instantiate(llama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
                 }
-
+            }
+            else
+            {
+                Instantiate(llama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
             }
         }
     }
