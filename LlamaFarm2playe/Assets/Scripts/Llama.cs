@@ -122,6 +122,7 @@ public class Llama : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
         {
             arrived = true;
@@ -129,6 +130,16 @@ public class Llama : MonoBehaviour
         else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
         {
             arrived = true;
+        }
+        if (gameObject.name == "JuggerLlama(Clone)" && !arrived)
+        {
+            if (collision.gameObject.TryGetComponent<CornGrow>(out CornGrow cornGrow))
+            {
+                cornGrow.growlevel = 0;
+                cornGrow.gameObject.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+                cornGrow.growChance = 0;
+                cornGrow.waterLevel = 1000;
+            }
         }
     }
 
@@ -142,5 +153,10 @@ public class Llama : MonoBehaviour
         {
             arrived = false;
         }
+    }
+    // called from animation event
+    public void Attack()
+    {
+
     }
 }

@@ -23,8 +23,8 @@ public class CornTake : MonoBehaviour
                 Debug.Log(collider.gameObject);
                 if (collider.gameObject.tag == "Corn")
                 {
-                    Debug.Log("lemona");
-                    Debug.Log(collider.gameObject);
+                    //Debug.Log("lemona");
+                    //Debug.Log(collider.gameObject);
 
                     if (collider.gameObject.GetComponent<CornGrow>().growlevel == 6)
                     {
@@ -33,7 +33,7 @@ public class CornTake : MonoBehaviour
                         collider.gameObject.GetComponent<CornGrow>().growChance = 0;
                         collider.gameObject.GetComponent<CornGrow>().waterLevel = 1000;
                         collider.gameObject.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-                        Debug.Log("test");
+                        //Debug.Log("test");
                     }
                     else if (collider.gameObject.GetComponent<CornGrow>().growlevel == 7)
                     {
@@ -42,7 +42,7 @@ public class CornTake : MonoBehaviour
                         collider.gameObject.GetComponent<CornGrow>().growChance = 0;
                         collider.gameObject.GetComponent<CornGrow>().waterLevel = 1000;
                         collider.gameObject.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-                        Debug.Log("test2");
+                        //Debug.Log("test2");
                     }
                 }
 
