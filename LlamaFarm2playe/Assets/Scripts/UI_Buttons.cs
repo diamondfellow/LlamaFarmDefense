@@ -33,7 +33,7 @@ public class UI_Buttons : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("ConnerScene");
+        SceneManager.LoadScene("GameScene");
     }
     public void Resume()
     {

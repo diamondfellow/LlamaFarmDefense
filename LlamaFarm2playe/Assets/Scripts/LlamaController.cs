@@ -29,7 +29,7 @@ public class LlamaController : MonoBehaviour
             gameTimer = 0;
             difficulty++;
         }
-        if (llamaTimer > 12 - difficulty)
+        if (llamaTimer > 12 - difficulty && difficulty < 7)
         {
             llamaTimer = 0;
             if (rnd.Next(1, 3) == 1)
