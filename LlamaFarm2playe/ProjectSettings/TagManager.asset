@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Corn
+  - E_Bullet
   layers:
   - Default
   - TransparentFX
