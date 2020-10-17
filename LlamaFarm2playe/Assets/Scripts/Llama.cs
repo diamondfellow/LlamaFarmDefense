@@ -14,11 +14,13 @@ public class Llama : MonoBehaviour
     public float llamaSpeed;
     Vector2 walkDirection;
     bool arrived = false;
+    GameObject gameController;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         corn = GameObject.FindGameObjectsWithTag("Corn");
+        gameController = GameObject.FindGameObjectWithTag("MainCamera");
         foreach (GameObject corn in corn)
         {
             distance.x = (Mathf.Abs(transform.position.x - corn.transform.position.x));
@@ -42,81 +44,88 @@ public class Llama : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance.x = (Mathf.Abs(transform.position.x - player.transform.position.x));
-        distance.x = distance.x * distance.x;
-        distance.y = (Mathf.Abs(transform.position.y - player.transform.position.y));
-        distance.y = distance.y * distance.y;
-        distance.z = Mathf.Sqrt(distance.x + distance.y);
-        if (gameObject.name == "Llama(Clone)")
+        if (!gameController.GetComponent<GameController>().gameEnded)
         {
-            if (distance.z > 4 && !arrived)
+            distance.x = (Mathf.Abs(transform.position.x - player.transform.position.x));
+            distance.x = distance.x * distance.x;
+            distance.y = (Mathf.Abs(transform.position.y - player.transform.position.y));
+            distance.y = distance.y * distance.y;
+            distance.z = Mathf.Sqrt(distance.x + distance.y);
+            if (gameObject.name == "Llama(Clone)")
             {
-                walkDirection = new Vector2(shortestCorn.transform.position.x - transform.position.x, shortestCorn.transform.position.y - transform.position.y);
-                walkDirection.Normalize();
-                GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                if (distance.z > 4 && !arrived)
+                {
+                    walkDirection = new Vector2(shortestCorn.transform.position.x - transform.position.x, shortestCorn.transform.position.y - transform.position.y);
+                    walkDirection.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                }
+                else if (distance.z < 3)
+                {
+                    walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
+                    walkDirection.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                }
             }
-            else if (distance.z < 3)
+            else if (gameObject.name == "LaserLlama(Clone)")
             {
-                walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
-                walkDirection.Normalize();
-                GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                if (distance.z > 4)
+                {
+                    walkDirection = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);
+                    walkDirection.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                }
+                else if (distance.z < 3)
+                {
+                    walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
+                    walkDirection.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                }
+
+                if (distance.z < 5 && distance.z > 1.5f)
+                {
+                    GetComponent<LlamaLaser>().enabled = true;
+                }
+                else
+                {
+                    GetComponent<LlamaLaser>().enabled = false;
+                }
             }
             else
             {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            }
-        }
-        else if (gameObject.name == "LaserLlama(Clone)")
-        {
-            if (distance.z > 4)
-            {
-                walkDirection = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.y - transform.position.y);
-                walkDirection.Normalize();
-                GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
-            }
-            else if (distance.z < 3)
-            {
-                walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
-                walkDirection.Normalize();
-                GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
-            }
-            else
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                if (distance.z > 2 && !arrived)
+                {
+                    walkDirection = new Vector2(longestCorn.transform.position.x - transform.position.x, longestCorn.transform.position.y - transform.position.y);
+                    walkDirection.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                }
+                else if (distance.z < 1)
+                {
+                    walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
+                    walkDirection.Normalize();
+                    GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
+                }
+                else
+                {
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                }
             }
 
-            if (distance.z < 5 && distance.z > 1.5f)
+            if (transform.position.x > 9.2f || transform.position.x < -9.2f || transform.position.y > 5.2f || transform.position.y < -5.2f)
             {
-                GetComponent<LlamaLaser>().enabled = true;
-            }
-            else
-            {
-                GetComponent<LlamaLaser>().enabled = false;
+                Destroy(gameObject);
             }
         }
         else
         {
-            if (distance.z > 2 && !arrived)
-            {
-                walkDirection = new Vector2(longestCorn.transform.position.x - transform.position.x, longestCorn.transform.position.y - transform.position.y);
-                walkDirection.Normalize();
-                GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
-            }
-            else if (distance.z < 1)
-            {
-                walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
-                walkDirection.Normalize();
-                GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
-            }
-            else
-            {
-                GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            }
-        }
-
-        if (transform.position.x > 9.2f || transform.position.x < -9.2f || transform.position.y > 5.2f || transform.position.y < -5.2f)
-        {
-            Destroy(gameObject);
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
     }
 

@@ -5,7 +5,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
     float timer;
-    bool frozen = false;
+    public bool frozen = false;
+    public GameObject gameController;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 velocity = new Vector2(x, y);
             GetComponent<Rigidbody2D>().velocity = velocity * moveSpeed;
         }
-        else
+        else if (!gameController.GetComponent<GameController>().gameEnded)
         {
             timer += Time.deltaTime;
             if (timer > .5f)
@@ -30,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
                 timer = 0;
                 frozen = false;
             }
+        }
+        else
+        {
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
         if (transform.position.x > 7.5f)

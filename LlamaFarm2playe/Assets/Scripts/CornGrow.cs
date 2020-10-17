@@ -8,7 +8,7 @@ public class CornGrow : MonoBehaviour
     public int waterLevel, growlevel, growChance;
     
     GameObject waterBar;
-
+    public GameObject gameController;
     
     float growtimer;
     float watertimer;
@@ -32,32 +32,35 @@ public class CornGrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        growtimer += Time.deltaTime;
-        watertimer += Time.deltaTime;
-        if (growtimer > GameController.GC.growMaxTimer)
+        if (!gameController.GetComponent<GameController>().gameEnded)
         {
-            growtimer = 0;
-            growChance += 1;
-            int check = Random.Range(growChance, 101);
-            if(check >= 90)
+            growtimer += Time.deltaTime;
+            watertimer += Time.deltaTime;
+            if (growtimer > GameController.GC.growMaxTimer)
             {
-                growChance = 0;
-                GrowUpdate();
+                growtimer = 0;
+                growChance += 1;
+                int check = Random.Range(growChance, 101);
+                if (check >= 90)
+                {
+                    growChance = 0;
+                    GrowUpdate();
+                }
             }
-        }     
-        if (watertimer > GameController.GC.waterMaxTimer)
-        {
-            watertimer = 0;
-            if (waterLevel < 0)
+            if (watertimer > GameController.GC.waterMaxTimer)
             {
-                growlevel = 0;
-                GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-                growChance = 0;
-                waterLevel = 1000;
+                watertimer = 0;
+                if (waterLevel < 0)
+                {
+                    growlevel = 0;
+                    GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+                    growChance = 0;
+                    waterLevel = 1000;
+                }
+                waterLevel -= Random.Range(1, 60);
+                WaterBarUpdate();
+
             }
-            waterLevel -= Random.Range(1, 60);
-            WaterBarUpdate();
-            
         }
     }
     public void WaterBarUpdate()

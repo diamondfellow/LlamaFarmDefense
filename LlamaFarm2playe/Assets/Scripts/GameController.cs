@@ -8,9 +8,9 @@ public class GameController : MonoBehaviour
     public static GameController GC;
     public int cornAmountP1;
 
-    float Gametimer;
+    float Gametimer = 0;
     float resetTimer;
-    public int GameTime;
+    int GameTime = 180;
 
     Canvas mainCanvas;
     public Slider waterlevel;
@@ -39,11 +39,14 @@ public class GameController : MonoBehaviour
 
     int minutes = 3;
     int seconds = 00;
+    public bool gameEnded;
+    public GameObject player;
 
     // Start is called before the first frame update
     private void Awake()
     {
         GC = this;
+        gameEnded = false;
     }
     void Start()
     {
@@ -55,11 +58,11 @@ public class GameController : MonoBehaviour
     {
         Gametimer += Time.deltaTime;
         resetTimer += Time.deltaTime;
-        if(Gametimer > GameTime)
+        if (Gametimer > GameTime)
         {
             EndGame();
         }
-        if (resetTimer > 1)
+        if (resetTimer > 1 && (minutes > 0 || seconds > 0))
         {
             resetTimer = 0;
             if (seconds == 0)
@@ -83,6 +86,7 @@ public class GameController : MonoBehaviour
     }
     void EndGame()
     {
-
+        gameEnded = true;
+        player.GetComponent<PlayerMovement>().frozen = true;
     }
 }

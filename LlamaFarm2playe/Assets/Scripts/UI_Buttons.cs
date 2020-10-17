@@ -50,4 +50,8 @@ public class UI_Buttons : MonoBehaviour
     {
         Application.Quit();
     }
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
 }
