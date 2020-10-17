@@ -5,6 +5,7 @@ using UnityEngine;
 public class CornTake : MonoBehaviour
 {
     GameObject currentCorn;
+    Vector2 checkSize = new Vector2(.5f, .5f);
     void Start()
     {
         
@@ -13,20 +14,36 @@ public class CornTake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        //Debug.Log(currentCorn);
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if(currentCorn != null)
+            Collider2D[] cornCollision = Physics2D.OverlapBoxAll(transform.position, checkSize, 0);
+            foreach (Collider2D collider in cornCollision)
             {
-                currentCorn.GetComponent<CornGrow>().growlevel = 0;
-                currentCorn.GetComponent<CornGrow>().waterLevel = 100;
-                currentCorn.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-                if (currentCorn.GetComponent<CornGrow>().growlevel == 2)
+                Debug.Log(collider.gameObject);
+                if (collider.gameObject.tag == "Corn")
                 {
-                    GameController.GC.cornAmountP1 += 3;
-                }
-                else if(currentCorn.GetComponent<CornGrow>().growlevel == 3)
-                {
-                    GameController.GC.cornAmountP1 += 1;
+                    Debug.Log("lemona");
+                    Debug.Log(collider.gameObject);
+
+                    if (collider.gameObject.GetComponent<CornGrow>().growlevel == 6)
+                    {
+                        GameController.GC.cornAmountP1 += 5;
+                        collider.gameObject.GetComponent<CornGrow>().growlevel = 0;
+                        collider.gameObject.GetComponent<CornGrow>().growChance = 0;
+                        collider.gameObject.GetComponent<CornGrow>().waterLevel = 1000;
+                        collider.gameObject.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+                        Debug.Log("test");
+                    }
+                    else if (collider.gameObject.GetComponent<CornGrow>().growlevel == 7)
+                    {
+                        GameController.GC.cornAmountP1 += 1;
+                        collider.gameObject.GetComponent<CornGrow>().growlevel = 0;
+                        collider.gameObject.GetComponent<CornGrow>().growChance = 0;
+                        collider.gameObject.GetComponent<CornGrow>().waterLevel = 1000;
+                        collider.gameObject.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+                        Debug.Log("test2");
+                    }
                 }
 
             }
@@ -34,7 +51,7 @@ public class CornTake : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "CornP1")
+        if(collision.gameObject.tag == "Corn")
         {
             currentCorn = collision.gameObject;
         }

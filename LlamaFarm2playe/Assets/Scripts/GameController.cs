@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     public int cornAmountP1;
 
     float Gametimer;
+    public int GameTime;
 
     Canvas mainCanvas;
     public Slider waterlevel;
@@ -31,19 +32,31 @@ public class GameController : MonoBehaviour
     public Sprite wilt;
     #endregion
 
-    public int waterMaxTimer;
-    public int growMaxTimer;
+    public float waterMaxTimer;
+    public float growMaxTimer;
 
-    
+
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         GC = this;
+    }
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Gametimer += Time.deltaTime;
+        if(Gametimer > GameTime)
+        {
+            EndGame();
+        }
+    }
+    void EndGame()
+    {
+
     }
 }
