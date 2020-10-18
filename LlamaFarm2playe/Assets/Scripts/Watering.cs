@@ -27,30 +27,34 @@ public class Watering : MonoBehaviour
         {
             collidedObjects = Physics2D.OverlapBoxAll(transform.position, checkSize, 0);
             waterTimer = 0;
-            PlayerMovement.PC.Sprinkle();
+            if (waterlevel > 0)
+            {
+                PlayerMovement.PC.Sprinkle();
+            }
             PlayerMovement.PC.moveSpeed = PlayerMovement.PC.moveSpeed * .5f;
             Debug.Log(PlayerMovement.PC.moveSpeed);
         }
         if (Input.GetKey(KeyCode.Space) && waterTimer > .3)
         {
             waterTimer = 0;
+            collidedObjects = Physics2D.OverlapBoxAll(transform.position, checkSize, 0);
             //Debug.Log(collidedObjects[0]);
             foreach (Collider2D collider in collidedObjects)
             {
                 if (collider.gameObject.tag == "Well" && waterlevel < maximumWater)
                 {
-                    waterlevel += 10;
+                    waterlevel += 20;
                    // Debug.Log("broski");
                 }
                 else if (collider.gameObject.tag == "Corn" && waterlevel > 0 && collider.gameObject.GetComponent<CornGrow>().waterLevel <= 1000)
                 {
-                    collider.gameObject.GetComponent<CornGrow>().waterLevel += 50;
+                    collider.gameObject.GetComponent<CornGrow>().waterLevel += 100;
                     Debug.Log("broski2");
                     waterlevel -= 1;
                 }
             }
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if ((Input.GetKeyUp(KeyCode.Space) && PlayerMovement.PC.moveSpeed == 3) || (waterlevel == 0 && PlayerMovement.PC.moveSpeed == 3))
         {
             PlayerMovement.PC.NoSprinkle();
             PlayerMovement.PC.moveSpeed = PlayerMovement.PC.moveSpeed / .5f;

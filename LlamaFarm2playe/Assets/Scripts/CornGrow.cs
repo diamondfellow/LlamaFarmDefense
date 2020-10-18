@@ -37,7 +37,7 @@ public class CornGrow : MonoBehaviour
             if (growtimer > GameController.GC.growMaxTimer)
             {
                 growtimer = 0;
-                growChance += 1;
+                growChance += 3;
                 float extraChance = waterLevel / 100;
                 if(extraChance > 1)
                 {
@@ -66,7 +66,7 @@ public class CornGrow : MonoBehaviour
     }
     public void WaterBarUpdate()
     {
-        if (waterLevel <= 1000 && waterLevel > 800)
+        if (waterLevel > 800)
         {
             waterBar.GetComponent<SpriteRenderer>().sprite = GameController.GC.Wbar4;
         }

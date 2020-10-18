@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed;
@@ -17,19 +18,22 @@ public class PlayerMovement : MonoBehaviour
     }
     void Start()
     {
-       beginFreeze = true;
+       beginFreeze = false; //true
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (GetComponent<Rigidbody2D>().velocity.x == 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
+        if (SceneManager.GetActiveScene().name != "ConnerScene")
         {
-            GetComponent<Animator>().SetBool("idle", true);
-        }
-        else if (GetComponent<Rigidbody2D>().velocity.x != 0 || GetComponent<Rigidbody2D>().velocity.y != 0)
-        {
-            GetComponent<Animator>().SetBool("idle", false);
+            if (GetComponent<Rigidbody2D>().velocity.x == 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
+            {
+                GetComponent<Animator>().SetBool("idle", true);
+            }
+            else if (GetComponent<Rigidbody2D>().velocity.x != 0 || GetComponent<Rigidbody2D>().velocity.y != 0)
+            {
+                GetComponent<Animator>().SetBool("idle", false);
+            }
         }
         if (GetComponent<Rigidbody2D>().velocity.x > 0)
         {
@@ -46,18 +50,15 @@ public class PlayerMovement : MonoBehaviour
             Vector2 velocity = new Vector2(x, y);
             GetComponent<Rigidbody2D>().velocity = velocity * moveSpeed;
         }
-        else if (!gameController.GetComponent<GameController>().gameEnded)
+        else if (!gameController.GetComponent<GameController>().gameEnded && frozen)
         {
             timer += Time.deltaTime;
+            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             if (timer > .5f)
             {
                 timer = 0;
                 frozen = false;
             }
-        }
-        else
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         }
         if (transform.position.x > 7.5f)
         {
@@ -92,10 +93,16 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Sprinkle()
     {
-        GetComponent<Animator>().SetBool("sprinkle", true);
+        if (SceneManager.GetActiveScene().name != "ConnerScene")
+        {
+            GetComponent<Animator>().SetBool("sprinkle", true);
+        }
     }
     public void NoSprinkle()
     {
-        GetComponent<Animator>().SetBool("sprinkle", false);
+        if (SceneManager.GetActiveScene().name != "ConnerScene")
+        {
+            GetComponent<Animator>().SetBool("sprinkle", false);
+        }
     }
 }

@@ -370,6 +370,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grey: {fileID: 2005798887}
+  music: {fileID: 0}
+  musicOn: {fileID: 0}
 --- !u!1 &410447562
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,6 +607,7 @@ GameObject:
   - component: {fileID: 1089944791}
   - component: {fileID: 1089944790}
   - component: {fileID: 1089944789}
+  - component: {fileID: 1089944792}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -677,6 +680,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1089944792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089944788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2c98870674333c4ba02fb4c16e9ca00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cornAmountP1: 0
+  waterlevel: {fileID: 0}
+  cornAmount1: {fileID: 0}
+  gameTimerText: {fileID: 0}
+  gameTimerImage: {fileID: 0}
+  Wbar00: {fileID: 0}
+  Wbar0: {fileID: 0}
+  Wbar1: {fileID: 0}
+  Wbar2: {fileID: 0}
+  Wbar3: {fileID: 0}
+  Wbar4: {fileID: 0}
+  Gstate0: {fileID: 0}
+  Gstate1: {fileID: 0}
+  Gstate2: {fileID: 0}
+  Gstate3: {fileID: 0}
+  Gstate4: {fileID: 0}
+  Gstate5: {fileID: 0}
+  Gstate6: {fileID: 0}
+  wilt: {fileID: 0}
+  timer2: {fileID: 0}
+  timer3: {fileID: 0}
+  timer4: {fileID: 0}
+  waterMaxTimer: 0
+  growMaxTimer: 0
+  gameEnded: 0
+  player: {fileID: 1201714986}
 --- !u!1 &1191849785
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  frozen: 0
+  gameController: {fileID: 1089944788}
 --- !u!212 &1201714989
 SpriteRenderer:
   m_ObjectHideFlags: 0

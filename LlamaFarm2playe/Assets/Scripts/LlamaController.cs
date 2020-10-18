@@ -13,11 +13,6 @@ public class LlamaController : MonoBehaviour
     int x;
     int llamaChooser;
     System.Random rnd = new System.Random();
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -40,7 +35,7 @@ public class LlamaController : MonoBehaviour
             {
                 x = -9;
             }
-            if (difficulty > 4)
+            if (difficulty > 3)
             {
                 llamaChooser = rnd.Next(1, 9);
                 if (llamaChooser < 3)
@@ -56,7 +51,7 @@ public class LlamaController : MonoBehaviour
                     Instantiate(laserLlama, new Vector3(x, rnd.Next(-45, 46) / 10, 0), Quaternion.identity);
                 }
             }
-            else if (difficulty > 2)
+            else if (difficulty > 1)
             {
                 llamaChooser = rnd.Next(1, 6);
                 if (llamaChooser == 1)

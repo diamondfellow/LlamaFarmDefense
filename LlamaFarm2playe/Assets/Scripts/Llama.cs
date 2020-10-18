@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Llama : MonoBehaviour
 {
     GameObject[] corn;
@@ -32,13 +32,16 @@ public class Llama : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GetComponent<Rigidbody2D>().velocity.x == 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
+        if (SceneManager.GetActiveScene().name != "ConnerScene")
         {
-            GetComponent<Animator>().SetBool("idle", true);
-        }
-        else if(GetComponent<Rigidbody2D>().velocity.x != 0 || GetComponent<Rigidbody2D>().velocity.y != 0)
-        {
-            GetComponent<Animator>().SetBool("idle", false);
+            if (GetComponent<Rigidbody2D>().velocity.x == 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
+            {
+                GetComponent<Animator>().SetBool("idle", true);
+            }
+            else if(GetComponent<Rigidbody2D>().velocity.x != 0 || GetComponent<Rigidbody2D>().velocity.y != 0)
+            {
+                GetComponent<Animator>().SetBool("idle", false);
+            }
         }
         if(GetComponent<Rigidbody2D>().velocity.x > 0)
         {
@@ -137,37 +140,42 @@ public class Llama : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
+        if (SceneManager.GetActiveScene().name != "ConnerScene")
         {
-            arrived = true;
-            GetComponent<Animator>().SetBool("at corn", true);
-        }
-        else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
-        {
-            arrived = true;
-            GetComponent<Animator>().SetBool("at corn", true);
-        }
-        if (gameObject.name == "JuggerLlama(Clone)" && !arrived)
-        {
-            if (collision.gameObject.TryGetComponent<CornGrow>(out CornGrow cornGrow))
+            if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
             {
-                cornGrow.CReset();
+                arrived = true;
+                GetComponent<Animator>().SetBool("at corn", true);
+            }
+            else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
+            {
+                arrived = true;
+                GetComponent<Animator>().SetBool("at corn", true);
+            }
+            if (gameObject.name == "JuggerLlama(Clone)" && !arrived)
+            {
+                if (collision.gameObject.TryGetComponent<CornGrow>(out CornGrow cornGrow))
+                {
+                    cornGrow.CReset();
 
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
+        if (SceneManager.GetActiveScene().name != "ConnerScene")
         {
-            arrived = false; GetComponent<Animator>().SetBool("at corn", false);
-        }
-        else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
-        {
-            arrived = false;
-            GetComponent<Animator>().SetBool("at corn", false);
+            if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
+            {
+                arrived = false; GetComponent<Animator>().SetBool("at corn", false);
+            }
+            else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
+            {
+                arrived = false;
+                GetComponent<Animator>().SetBool("at corn", false);
+            }
         }
     }
     // called from animation event

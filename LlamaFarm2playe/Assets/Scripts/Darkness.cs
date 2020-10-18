@@ -8,6 +8,7 @@ public class Darkness : MonoBehaviour
     public GameObject gameController;
     public Color color;
     float timer;
+    public AudioSource music;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +27,7 @@ public class Darkness : MonoBehaviour
                 GetComponent<Image>().color = color;
                 if (color.a > 1)
                 {
+                    PlayerPrefs.SetFloat("MusicTime", music.GetComponent<AudioSource>().time);
                     SceneManager.LoadScene("EndScene");
                 }
             }
