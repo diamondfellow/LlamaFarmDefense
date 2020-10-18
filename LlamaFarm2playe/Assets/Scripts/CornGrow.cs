@@ -12,6 +12,10 @@ public class CornGrow : MonoBehaviour
     float growtimer;
     float watertimer;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        //CReset();
+    }
     void Start()
     {
         Transform trans = transform;
@@ -20,12 +24,7 @@ public class CornGrow : MonoBehaviour
         {
             waterBar = childtrans.gameObject;
         }
-        waterLevel = 1000;
-        growlevel = 0;
-        health = 3;
-        growChance = 0;
-
-        GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+        CReset();
     }
 
     // Update is called once per frame
@@ -39,8 +38,14 @@ public class CornGrow : MonoBehaviour
             {
                 growtimer = 0;
                 growChance += 1;
-                int check = Random.Range(growChance, 101);
-                if (check >= 90)
+                float extraChance = waterLevel / 100;
+                if(extraChance > 1)
+                {
+                    int transfer = Mathf.FloorToInt(extraChance);
+                    growChance += transfer;
+                }
+                int check = Random.Range(growChance, 131);
+                if (check >= 130)
                 {
                     growChance = 0;
                     GrowUpdate();
@@ -51,10 +56,7 @@ public class CornGrow : MonoBehaviour
                 watertimer = 0;
                 if (waterLevel < 0)
                 {
-                    growlevel = 0;
-                    GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-                    growChance = 0;
-                    waterLevel = 1000;
+                    CReset();
                 }
                 waterLevel -= Random.Range(1, 60);
                 WaterBarUpdate();
@@ -80,9 +82,13 @@ public class CornGrow : MonoBehaviour
         {
             waterBar.GetComponent<SpriteRenderer>().sprite = GameController.GC.Wbar1;
         }
-        else if (waterLevel <= 200)
+        else if (waterLevel <= 200 && waterLevel > 50)
         {
             waterBar.GetComponent<SpriteRenderer>().sprite = GameController.GC.Wbar0;
+        }
+        else
+        {
+            waterBar.GetComponent<SpriteRenderer>().sprite = GameController.GC.Wbar00;
         }
 
     }
@@ -136,10 +142,16 @@ public class CornGrow : MonoBehaviour
         health -= damage;
         if(health <= 0)
         {
-            growlevel = 0;
-            GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-            growChance = 0;
-            waterLevel = 1000;
+            CReset();
         }
+    }
+    public void CReset()
+    {
+        health = 3;
+        growlevel = 0;
+        GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+        growChance = 0;
+        waterLevel = 100;
+        WaterBarUpdate();
     }
 }

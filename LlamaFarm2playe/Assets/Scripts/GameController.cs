@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     public Image gameTimerImage;
 
     #region sprites
+    public Sprite Wbar00;
     public Sprite Wbar0;
     public Sprite Wbar1;
     public Sprite Wbar2;

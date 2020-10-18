@@ -27,6 +27,9 @@ public class Watering : MonoBehaviour
         {
             collidedObjects = Physics2D.OverlapBoxAll(transform.position, checkSize, 0);
             waterTimer = 0;
+            PlayerMovement.PC.Sprinkle();
+            PlayerMovement.PC.moveSpeed = PlayerMovement.PC.moveSpeed * .5f;
+            Debug.Log(PlayerMovement.PC.moveSpeed);
         }
         if (Input.GetKey(KeyCode.Space) && waterTimer > .3)
         {
@@ -39,9 +42,9 @@ public class Watering : MonoBehaviour
                     waterlevel += 10;
                    // Debug.Log("broski");
                 }
-                if (collider.gameObject.tag == "Corn" && waterlevel > 0 && collider.gameObject.GetComponent<CornGrow>().waterLevel <= 1000)
+                else if (collider.gameObject.tag == "Corn" && waterlevel > 0 && collider.gameObject.GetComponent<CornGrow>().waterLevel <= 1000)
                 {
-                    collider.gameObject.GetComponent<CornGrow>().waterLevel += 20;
+                    collider.gameObject.GetComponent<CornGrow>().waterLevel += 50;
                     Debug.Log("broski2");
                     waterlevel -= 1;
                 }
@@ -49,8 +52,11 @@ public class Watering : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Space))
         {
+            PlayerMovement.PC.NoSprinkle();
+            PlayerMovement.PC.moveSpeed = PlayerMovement.PC.moveSpeed / .5f;
             foreach (Collider2D collider in collidedObjects)
             {
+                
                 if (collider.gameObject.tag == "Corn")
                 {
                     collider.gameObject.GetComponent<CornGrow>().WaterBarUpdate();

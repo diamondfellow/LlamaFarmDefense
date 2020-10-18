@@ -36,7 +36,7 @@ public class Llama : MonoBehaviour
         {
             GetComponent<Animator>().SetBool("idle", true);
         }
-        else if(GetComponent<Rigidbody2D>().velocity.x != 0 && GetComponent<Rigidbody2D>().velocity.y != 0)
+        else if(GetComponent<Rigidbody2D>().velocity.x != 0 || GetComponent<Rigidbody2D>().velocity.y != 0)
         {
             GetComponent<Animator>().SetBool("idle", false);
         }
@@ -44,7 +44,7 @@ public class Llama : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        if (GetComponent<Rigidbody2D>().velocity.x < 0)
+        else if (GetComponent<Rigidbody2D>().velocity.x < 0)
         {
             GetComponent<SpriteRenderer>().flipX = false;
         }
@@ -152,10 +152,8 @@ public class Llama : MonoBehaviour
         {
             if (collision.gameObject.TryGetComponent<CornGrow>(out CornGrow cornGrow))
             {
-                cornGrow.growlevel = 0;
-                cornGrow.gameObject.GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
-                cornGrow.growChance = 0;
-                cornGrow.waterLevel = 1000;
+                cornGrow.CReset();
+
             }
         }
     }
