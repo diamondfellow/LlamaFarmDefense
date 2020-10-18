@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 
     float Gametimer = 0;
     float resetTimer;
-    int GameTime = 10;
+    int GameTime = 180;
 
     Canvas mainCanvas;
     public Slider waterlevel;
