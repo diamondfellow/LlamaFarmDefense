@@ -33,6 +33,7 @@ public class UI_Buttons : MonoBehaviour
 
     public void StartGame()
     {
+        PlayerPrefs.SetInt("Corn", 0);
         SceneManager.LoadScene("GameScene");
     }
     public void Resume()

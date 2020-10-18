@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Watering : MonoBehaviour
 {
     public int waterlevel;
     public int maximumWater;
     float waterTimer;
+    public Slider waterSlider;
 
     Collider2D[] collidedObjects;
     public Vector2 checkSize;
@@ -19,6 +21,7 @@ public class Watering : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        waterSlider.value = waterlevel;
         waterTimer += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -33,7 +36,7 @@ public class Watering : MonoBehaviour
             {
                 if (collider.gameObject.tag == "Well" && waterlevel < maximumWater)
                 {
-                    waterlevel += 3;
+                    waterlevel += 10;
                    // Debug.Log("broski");
                 }
                 if (collider.gameObject.tag == "Corn" && waterlevel > 0 && collider.gameObject.GetComponent<CornGrow>().waterLevel <= 1000)

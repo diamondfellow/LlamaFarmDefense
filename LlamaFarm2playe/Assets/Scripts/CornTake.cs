@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CornTake : MonoBehaviour
 {
     GameObject currentCorn;
     Vector2 checkSize = new Vector2(.5f, .5f);
+    public Text cornText;
     void Start()
     {
         
@@ -15,6 +16,7 @@ public class CornTake : MonoBehaviour
     void Update()
     {
         //Debug.Log(currentCorn);
+        cornText.text = PlayerPrefs.GetInt("Corn").ToString();
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Collider2D[] cornCollision = Physics2D.OverlapBoxAll(transform.position, checkSize, 0);

@@ -10,12 +10,13 @@ public class GameController : MonoBehaviour
 
     float Gametimer = 0;
     float resetTimer;
-    int GameTime = 180;
+    int GameTime = 120;
 
     Canvas mainCanvas;
     public Slider waterlevel;
     public Text cornAmount1;
     public Text gameTimerText;
+    public Image gameTimerImage;
 
     #region sprites
     public Sprite Wbar0;
@@ -32,12 +33,16 @@ public class GameController : MonoBehaviour
     public Sprite Gstate5;
     public Sprite Gstate6;
     public Sprite wilt;
+
+    public Sprite timer2;
+    public Sprite timer3;
+    public Sprite timer4;
     #endregion
 
     public float waterMaxTimer;
     public float growMaxTimer;
 
-    int minutes = 3;
+    int minutes = 2;
     int seconds = 00;
     public bool gameEnded;
     public GameObject player;
@@ -61,6 +66,18 @@ public class GameController : MonoBehaviour
         if (Gametimer > GameTime)
         {
             EndGame();
+        }
+        if (Gametimer > 90)
+        {
+            gameTimerImage.GetComponent<Image>().sprite = timer4;
+        }
+        else if (Gametimer > 60)
+        {
+            gameTimerImage.GetComponent<Image>().sprite = timer3;
+        }
+        else if (Gametimer > 30)
+        {
+            gameTimerImage.GetComponent<Image>().sprite = timer2;
         }
         if (resetTimer > 1 && (minutes > 0 || seconds > 0))
         {

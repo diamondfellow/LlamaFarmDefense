@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 48f8b6b41477f5a4ea4a5e4d000fdb6c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Pixolde
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 4508e0d0152f85c41be70275f4adafc6, type: 3}
+  - {fileID: 12800000, guid: 22c4c01f62f681e41948c962fb7ca538, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
