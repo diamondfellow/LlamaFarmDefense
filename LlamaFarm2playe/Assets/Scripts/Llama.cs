@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class Llama : MonoBehaviour
@@ -44,6 +45,22 @@ public class Llama : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GetComponent<Rigidbody2D>().velocity.x == 0 && GetComponent<Rigidbody2D>().velocity.y == 0)
+        {
+            GetComponent<Animator>().SetBool("idle", true);
+        }
+        else if(GetComponent<Rigidbody2D>().velocity.x != 0 && GetComponent<Rigidbody2D>().velocity.y != 0)
+        {
+            GetComponent<Animator>().SetBool("idle", false);
+        }
+        if(GetComponent<Rigidbody2D>().velocity.x > 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        if (GetComponent<Rigidbody2D>().velocity.x < 0)
+        {
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
         if (!gameController.GetComponent<GameController>().gameEnded)
         {
             distance.x = (Mathf.Abs(transform.position.x - player.transform.position.x));
@@ -53,6 +70,7 @@ public class Llama : MonoBehaviour
             distance.z = Mathf.Sqrt(distance.x + distance.y);
             if (gameObject.name == "Llama(Clone)")
             {
+                
                 if (distance.z > 4 && !arrived)
                 {
                     walkDirection = new Vector2(shortestCorn.transform.position.x - transform.position.x, shortestCorn.transform.position.y - transform.position.y);
@@ -135,10 +153,12 @@ public class Llama : MonoBehaviour
         if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
         {
             arrived = true;
+            GetComponent<Animator>().SetBool("at corn", true);
         }
         else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
         {
             arrived = true;
+            GetComponent<Animator>().SetBool("at corn", true);
         }
         if (gameObject.name == "JuggerLlama(Clone)" && !arrived)
         {
@@ -156,16 +176,27 @@ public class Llama : MonoBehaviour
     {
         if (gameObject.name == "Llama(Clone)" && collision.gameObject == shortestCorn)
         {
-            arrived = false;
+            arrived = false; GetComponent<Animator>().SetBool("at corn", false);
         }
         else if (gameObject.name == "JuggerLlama(Clone)" && collision.gameObject == longestCorn)
         {
             arrived = false;
+            GetComponent<Animator>().SetBool("at corn", false);
         }
     }
     // called from animation event
     public void Attack()
     {
-
+        if (arrived)
+        {
+            if(gameObject.name == "Llama(Clone)")
+            {
+                shortestCorn.GetComponent<CornGrow>().Damage(1);
+            }
+            else if (gameObject.name == "JuggerLlama(Clone)")
+            {
+                shortestCorn.GetComponent<CornGrow>().Damage(3);
+            }
+        }
     }
 }

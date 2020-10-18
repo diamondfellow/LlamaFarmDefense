@@ -139,6 +139,8 @@ public class CornGrow : MonoBehaviour
         {
             growlevel = 0;
             GetComponent<SpriteRenderer>().sprite = GameController.GC.Gstate0;
+            growChance = 0;
+            waterLevel = 1000;
         }
     }
 }

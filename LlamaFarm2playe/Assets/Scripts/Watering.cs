@@ -39,7 +39,7 @@ public class Watering : MonoBehaviour
                 if (collider.gameObject.tag == "Corn" && waterlevel > 0 && collider.gameObject.GetComponent<CornGrow>().waterLevel <= 1000)
                 {
                     collider.gameObject.GetComponent<CornGrow>().waterLevel += 20;
-                    //Debug.Log("broski2");
+                    Debug.Log("broski2");
                     waterlevel -= 1;
                 }
             }
