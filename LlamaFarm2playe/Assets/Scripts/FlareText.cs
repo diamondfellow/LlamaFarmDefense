@@ -18,7 +18,7 @@ public class FlareText : MonoBehaviour
     {
         if (gameObject.name == "FarmText")
         {
-            color.a -= Time.deltaTime;
+            color.a -= Time.deltaTime * .5f;
             GetComponent<Text>().color = color;
             if (color.a < .01)
             {

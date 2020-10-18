@@ -29,6 +29,7 @@ public class CornTake : MonoBehaviour
                     if (collider.gameObject.GetComponent<CornGrow>().growlevel == 6)
                     {
                         GameController.GC.cornAmountP1 += 5;
+                        PlayerPrefs.SetInt("Corn", PlayerPrefs.GetInt("Corn") + 5);
                         collider.gameObject.GetComponent<CornGrow>().growlevel = 0;
                         collider.gameObject.GetComponent<CornGrow>().growChance = 0;
                         collider.gameObject.GetComponent<CornGrow>().waterLevel = 1000;
@@ -38,6 +39,7 @@ public class CornTake : MonoBehaviour
                     else if (collider.gameObject.GetComponent<CornGrow>().growlevel == 7)
                     {
                         GameController.GC.cornAmountP1 += 1;
+                        PlayerPrefs.SetInt("Corn", PlayerPrefs.GetInt("Corn") + 1);
                         collider.gameObject.GetComponent<CornGrow>().growlevel = 0;
                         collider.gameObject.GetComponent<CornGrow>().growChance = 0;
                         collider.gameObject.GetComponent<CornGrow>().waterLevel = 1000;

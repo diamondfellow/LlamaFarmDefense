@@ -118,13 +118,13 @@ public class Llama : MonoBehaviour
             }
             else
             {
-                if (distance.z > 2 && !arrived)
+                if (distance.z > 3 && !arrived)
                 {
                     walkDirection = new Vector2(longestCorn.transform.position.x - transform.position.x, longestCorn.transform.position.y - transform.position.y);
                     walkDirection.Normalize();
                     GetComponent<Rigidbody2D>().velocity = walkDirection * llamaSpeed;
                 }
-                else if (distance.z < 1)
+                else if (distance.z < 2)
                 {
                     walkDirection = new Vector2(transform.position.x - player.transform.position.x, transform.position.y - player.transform.position.y);
                     walkDirection.Normalize();
